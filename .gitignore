@@ -1,0 +1,5 @@
+# IDE Settings Folder
+.idea
+
+# DB SQLite File
+db.sqlite3
