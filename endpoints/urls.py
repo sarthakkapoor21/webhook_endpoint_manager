@@ -1,7 +1,17 @@
-from django.urls import path
+from django.conf.urls import url
 
-from endpoints import views
+from rest_framework import routers
 
+from endpoints import (
+    views as endpoints_views,
+)
+
+router = routers.SimpleRouter()
+router.register(r'', endpoints_views.EndpointViewSet, basename='Endpoint')
 urlpatterns = [
-    path('', views.index, name='index'),
-]
+    url(
+        regex=r'^(?P<endpoint_unique_url>[\-_a-zA-Z0-9]+)/$',
+        view=endpoints_views.EndpointRequestView.as_view(),
+        name="endpoint_request"
+    ),
+] + router.urls
