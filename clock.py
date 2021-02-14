@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 
-scheduler = BackgroundScheduler()
+scheduler = BlockingScheduler()
 
 
 @scheduler.scheduled_job('interval', minutes=1)
