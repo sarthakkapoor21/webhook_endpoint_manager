@@ -154,12 +154,17 @@ USE_TZ = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = "/static/"
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR,  'templates'),
+)
+SECRET_KEY = 'xy(5!%w&m7(0^5hu6!e1_7$f!w(t$odm(i0bwoa0#2s#3^j*s#'
+
 #location where django collect all static files
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # location where you will store your static files
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'webhook_endpoint_manager/staticfiles')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
