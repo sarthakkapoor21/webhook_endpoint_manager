@@ -68,7 +68,6 @@ class EndpointRequestView(drf_generics.CreateAPIView):
                         data_type=endpoints_models.RequestMetaData.DATA_TYPE.HEADER
                     )
                 )
-            print(request.GET)
             for key, value_list in dict(request.GET).items():
                 print(value_list)
                 for value in value_list:
