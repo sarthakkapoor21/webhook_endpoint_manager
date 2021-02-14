@@ -18,6 +18,7 @@ class EndpointViewSet(
 ):
     serializer_class = endpoints_serializers.EndpointBaseSerializer
     model = endpoints_models.Endpoint
+    lookup_field = 'unique_url'
 
     def get_serializer_class(self):
         serializer_class = endpoints_serializers.EndpointBaseSerializer
@@ -69,7 +70,6 @@ class EndpointRequestView(drf_generics.CreateAPIView):
                     )
                 )
             for key, value_list in dict(request.GET).items():
-                print(value_list)
                 for value in value_list:
                     request_meta_data_objects_to_create.append(
                         endpoints_models.RequestMetaData(

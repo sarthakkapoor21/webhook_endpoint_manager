@@ -7,7 +7,7 @@ from webhook_endpoint_manager.constants import CHAR_FIELD_LENGTHS
 
 
 class Endpoint(models.Model):
-    unique_url = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    unique_url = models.UUIDField(default=uuid.uuid4, editable=False)
     base = models.CharField(max_length=CHAR_FIELD_LENGTHS.LONG, default='')
     created_at = models.DateTimeField(auto_now_add=True)
 

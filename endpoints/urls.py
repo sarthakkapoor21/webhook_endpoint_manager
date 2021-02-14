@@ -8,10 +8,10 @@ from endpoints import (
 
 router = routers.SimpleRouter()
 router.register(r'', endpoints_views.EndpointViewSet, basename='Endpoint')
-urlpatterns = router.urls + [
+urlpatterns = [
     url(
-        regex=r'^(?P<endpoint_unique_url>[\-_a-zA-Z0-9]+)/$',
+        regex=r'^(?P<endpoint_unique_url>[\-_a-zA-Z0-9]+)/save-request-data/$',
         view=endpoints_views.EndpointRequestView.as_view(),
         name="endpoint_request"
     ),
-]
+] + router.urls
