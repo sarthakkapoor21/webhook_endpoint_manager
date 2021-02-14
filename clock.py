@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
 
+import django
+
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 scheduler = BlockingScheduler()
+django.setup(set_prefix=False)
 
 
 @scheduler.scheduled_job('interval', minutes=1)
