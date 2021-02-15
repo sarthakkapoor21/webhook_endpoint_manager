@@ -25,7 +25,7 @@ class RequestDataSerializer(drf_serializers.ModelSerializer):
 
 class EndpointBaseSerializer(drf_serializers.ModelSerializer):
 
-    request_count = drf_fields.CharField()
+    request_count = drf_fields.CharField(read_only=True)
 
     class Meta(object):
         model = Endpoint
