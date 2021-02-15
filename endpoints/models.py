@@ -7,6 +7,12 @@ from webhook_endpoint_manager.constants import CHAR_FIELD_LENGTHS
 
 
 class Endpoint(models.Model):
+    """
+    Model to Save Endpoint.
+    unique_url: saves the unique_url of Endpoint.
+    base: different base can be set in future (Base can be used to append before endpoint [FUTURE SCOPE])
+    created_at: time when Endpoint is created.
+    """
     unique_url = models.UUIDField(default=uuid.uuid4, editable=False)
     base = models.CharField(max_length=CHAR_FIELD_LENGTHS.LONG, default='')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,6 +22,9 @@ class Endpoint(models.Model):
 
 
 class RequestData(models.Model):
+    """
+    Model to save Request Data for a particular Endpoint.
+    """
     endpoint = models.ForeignKey(to=Endpoint, on_delete=models.CASCADE, related_name='request_data')
     raw_body = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -25,6 +34,9 @@ class RequestData(models.Model):
 
 
 class RequestMetaData(models.Model):
+    """
+    Model to save Query Params or Headers for a Particular Request
+    """
     DATA_TYPE = namedtuple('DATA_TYPE', ['QUERY_PARAM', 'HEADER'])(
         QUERY_PARAM=1,
         HEADER=2,
