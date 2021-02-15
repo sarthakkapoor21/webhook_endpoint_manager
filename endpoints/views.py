@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.db.models import Count, Prefetch
 
 from rest_framework import (
@@ -33,12 +35,18 @@ class EndpointViewSet(
     def get_queryset(self):
         queryset = endpoints_models.Endpoint.objects.prefetch_related('request_data').annotate(
             request_count=Count('request_data')
-        ).all()
+        ).all().order_by('created_at')
         if self.action == 'retrieve':
             # If we want to get Detail of a particular Endpoint.
             # We prefetch Request Data, Query Params, Headers
+            # Also we show Hits that happened in the last 5 minutes
             queryset = endpoints_models.Endpoint.objects.prefetch_related(
-                Prefetch('request_data'),
+                Prefetch(
+                    'request_data',
+                    queryset=endpoints_models.RequestData.objects.filter(
+                        created_at__gte=datetime.now() - timedelta(minutes=5)
+                    ),
+                ),
                 Prefetch(
                     'request_data__meta_data',
                     queryset=endpoints_models.RequestMetaData.objects.filter(
@@ -53,7 +61,7 @@ class EndpointViewSet(
                     ),
                     to_attr='headers',
                 )
-            ).all()
+            )
         return queryset
 
 
