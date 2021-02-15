@@ -3,3 +3,6 @@
 
 # DB SQLite File
 db.sqlite3
+
+# Local Settings File
+webhook_endpoint_manager/local_settings.py

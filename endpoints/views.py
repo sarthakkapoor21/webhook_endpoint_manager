@@ -1,4 +1,4 @@
-from django.db.models import Prefetch
+from django.db.models import Count, Prefetch
 
 from rest_framework import (
     generics as drf_generics,
@@ -27,7 +27,9 @@ class EndpointViewSet(
         return serializer_class
 
     def get_queryset(self):
-        queryset = endpoints_models.Endpoint.objects.all()
+        queryset = endpoints_models.Endpoint.objects.prefetch_related('request_data').annotate(
+            request_count=Count('request_data')
+        ).all()
         if self.action == 'retrieve':
             queryset = endpoints_models.Endpoint.objects.prefetch_related(
                 Prefetch('request_data'),

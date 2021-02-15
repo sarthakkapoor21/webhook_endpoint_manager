@@ -6,7 +6,11 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webhook_endpoint_manager.settings')
+    exists = os.path.exists('webhook_endpoint_manager/local_settings.py')
+    if exists:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "webhook_endpoint_manager.local_settings")
+    else:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "webhook_endpoint_manager.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
